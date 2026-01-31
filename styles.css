@@ -1,7 +1,3 @@
-/* 
-  YouTube Analyzer - Dark Theme 
-  Modern, Clean, Accessible
-*/
 
 :root {
     --bg-primary: #121212;
@@ -11,10 +7,10 @@
     --text-main: #e0e0e0;
     --text-muted: #a0a0a0;
     
-    --accent-color: #bb86fc; /* Soft Purple */
+    --accent-color: #bb86fc; 
     --accent-hover: #9955e8;
     
-    --secondary-accent: #03dac6; /* Teal */
+    --secondary-accent: #03dac6; 
     --secondary-hover: #01b4a4;
     
     --error-color: #cf6679;
@@ -30,7 +26,6 @@
     --transition-speed: 0.2s;
 }
 
-/* Reset & Base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -60,7 +55,6 @@ input {
     outline: none;
 }
 
-/* Container */
 .app-container {
     width: 100%;
     max-width: 1200px;
@@ -70,7 +64,6 @@ input {
     gap: 30px;
 }
 
-/* Header */
 .app-header {
     text-align: center;
     margin-top: 20px;
@@ -92,7 +85,6 @@ input {
     font-weight: 300;
 }
 
-/* Input Section */
 .input-section {
     display: flex;
     flex-direction: column;
@@ -127,10 +119,9 @@ input {
     color: var(--error-color);
     font-size: 0.85rem;
     margin-top: 6px;
-    min-height: 1.2em; /* Prevent layout jump */
+    min-height: 1.2em; 
 }
 
-/* Buttons */
 .action-buttons {
     display: flex;
     gap: 16px;
@@ -188,7 +179,6 @@ input {
     background-color: #383838;
 }
 
-/* Loading Spinner */
 .spinner {
     width: 16px;
     height: 16px;
@@ -196,7 +186,7 @@ input {
     border-radius: 50%;
     border-top-color: #fff;
     animation: spin 1s linear infinite;
-    display: none; /* Hidden by default */
+    display: none; 
 }
 
 .secondary-btn .spinner {
@@ -208,7 +198,6 @@ input {
     to { transform: rotate(360deg); }
 }
 
-/* State: Loading */
 .loading .spinner {
     display: block;
 }
@@ -220,7 +209,6 @@ input {
     cursor:not-allowed;
 }
 
-/* Status Message */
 .status-message {
     text-align: center;
     padding: 12px;
@@ -237,7 +225,6 @@ input {
     border: 1px solid var(--error-color);
 }
 
-/* Results Grid */
 .results-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -261,11 +248,10 @@ input {
         grid-column: 2 / 3;
     }
     .quiz-card {
-        grid-column: 1 / -1; /* Full width */
+        grid-column: 1 / -1; 
     }
 }
 
-/* Cards */
 .card {
     background-color: var(--bg-secondary);
     border-radius: var(--card-radius);
@@ -295,10 +281,9 @@ input {
     gap: 8px;
 }
 
-/* Video Section */
 .video-embed-container {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     border-radius: var(--btn-radius);
@@ -320,7 +305,6 @@ input {
     color: var(--text-main);
 }
 
-/* Analysis Section */
 .analysis-content {
     display: flex;
     flex-direction: column;
@@ -347,7 +331,7 @@ input {
     background-color: var(--bg-tertiary);
     color: var(--secondary-accent);
     padding: 6px 12px;
-    border-radius: 100px; /* Pillow shape */
+    border-radius: 100px; 
     font-size: 0.85rem;
     font-weight: 500;
 }
@@ -357,7 +341,6 @@ input {
     color: #d0d0d0;
 }
 
-/* Quiz Section */
 .quiz-list {
     display: flex;
     flex-direction: column;
@@ -398,7 +381,7 @@ input {
 
 .quiz-options {
     padding: 0 16px 16px 16px;
-    display: none; /* Hidden by default */
+    display: none; 
     flex-direction: column;
     gap: 8px;
 }
@@ -421,7 +404,6 @@ input {
     color: var(--text-main);
 }
 
-/* Correct/Incorrect States */
 .option-btn.correct {
     border: 1px solid var(--success-color);
     color: var(--success-color);
@@ -432,7 +414,6 @@ input {
     border: 1px solid var(--text-muted);
 }
 
-/* Utilities */
 .hidden {
     display: none !important;
 }
