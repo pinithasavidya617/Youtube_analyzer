@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube AI Analyzer</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>YT Analyzer <span class="accent-text">AI</span></h1>
+            <p class="subtitle">Extract insights and generate quizzes from video transcripts</p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="input-group">
+                <input type="text" id="urlInput" placeholder="https://www.youtube.com/watch?v=..." aria-label="YouTube URL">
+                <div id="validationMsg" class="validation-msg"></div>
+            </div>
+            
+            <div class="action-buttons">
+                <button id="analyzeBtn" class="btn primary-btn">
+                    <span class="btn-text">Analyze Video</span>
+                    <div class="spinner"></div>
+                </button>
+                <button id="quizBtn" class="btn secondary-btn">
+                    <span class="btn-text">Generate Quiz</span>
+                    <div class="spinner"></div>
+                </button>
+            </div>
+        </section>
+
+        <!-- Status / Error Messages -->
+        <div id="statusMessage" class="status-message hidden"></div>
+
+        <!-- Main Results Grid -->
+        <main id="resultsArea" class="results-grid hidden">
+            
+            <!-- 1. Video Info -->
+            <article class="card video-card">
+                <div class="card-header">
+                    <h2>Video Source</h2>
+                </div>
+                <div class="video-embed-container" id="videoContainer">
+                    <!-- Iframe will be injected here -->
+                </div>
+                <div class="video-meta">
+                    <h3 id="videoTitle"></h3>
+                </div>
+            </article>
+
+            <!-- 2. Analysis Results -->
+            <article class="card analysis-card">
+                <div class="card-header">
+                    <h2>Analysis</h2>
+                    <div class="card-actions">
+                        <button id="copySummaryBtn" class="btn icon-btn" title="Copy Summary">Copy</button>
+                        <button id="downloadAnalysisBtn" class="btn icon-btn" title="Download JSON">JSON</button>
+                    </div>
+                </div>
+                
+                <div class="analysis-content">
+                    <div class="section-block">
+                        <label>Main Topics</label>
+                        <div id="topicsList" class="topics-chips">
+                            <!-- Chips -->
+                        </div>
+                    </div>
+
+                    <div class="section-block">
+                        <label>Summary</label>
+                        <p id="summaryText" class="summary-text"></p>
+                    </div>
+
+                    <div class="section-block">
+                        <label>Recommended Audience</label>
+                        <p id="audienceText" class="audience-text"></p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 3. Quiz Results -->
+            <article class="card quiz-card">
+                <div class="card-header">
+                    <h2>Quiz</h2>
+                    <div class="card-actions">
+                        <button id="copyQuizBtn" class="btn icon-btn" title="Copy Quiz JSON">Copy</button>
+                        <button id="downloadQuizBtn" class="btn icon-btn" title="Download Quiz JSON">JSON</button>
+                    </div>
+                </div>
+                <div id="quizList" class="quiz-list">
+                    <!-- Quiz Items -->
+                </div>
+            </article>
+
+        </main>
+    </div>
+
+    <!-- Template for Quiz Item (Optional usage in JS, or build dynamically) -->
+    
+    <script src="app.js"></script>
+</body>
+</html>
