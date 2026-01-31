@@ -1,10 +1,4 @@
-/**
- * YouTube Analyzer Frontend Logic
- * Handles URL validation, API requests, and UI rendering.
- */
 
-// CONFIGURATION
-// Change this to your backend URL (e.g., 'http://localhost:8000')
 const API_BASE = 'http://127.0.0.1:8000';
 
 // STATE
@@ -77,7 +71,6 @@ function validateInput(url) {
 }
 
 function isValidYoutubeUrl(url) {
-    // Simple regex for standard and short URLs
     const p = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})(.*)?$/;
     return url.match(p);
 }
@@ -101,9 +94,8 @@ async function handleAnalyze() {
     saveToStorage(currentUrl);
 
     try {
-        // Embed video immediately for better UX
         renderVideoEmbed(currentVideoId);
-        resultsArea.classList.remove('hidden'); // Show layout skeleton if desired, or wait
+        resultsArea.classList.remove('hidden'); 
 
         const response = await fetch(`${API_BASE}/analyzer`, {
             method: 'POST',
@@ -114,14 +106,6 @@ async function handleAnalyze() {
         if (!response.ok) throw new Error(`Server Error: ${response.status}`);
 
         const data = await response.json();
-        /* 
-           Expected Data Shape:
-           {
-               "main_topics": ["string", ...],
-               "summary": "string",
-               "recommended_audience": "string"
-           }
-        */
         analysisData = data;
         renderAnalysis(data);
         showStatus('Analysis complete!', 'success');
@@ -151,22 +135,10 @@ async function handleQuiz() {
         if (!response.ok) throw new Error(`Server Error: ${response.status}`);
 
         const data = await response.json();
-        /*
-           Expected Data Shape:
-           {
-               "questions": [
-                   {
-                       "id": 1,
-                       "question": "Q text",
-                       "options": {"A":"opt1", "B":"opt2"...},
-                       "correct": "B"
-                   }, ...
-               ]
-           }
-        */
-        quizData = data; // Store full object
+        
+        quizData = data; 
         renderQuiz(data.questions);
-        resultsArea.classList.remove('hidden'); // Ensure visible
+        resultsArea.classList.remove('hidden'); 
         showStatus('Quiz generated!', 'success');
 
     } catch (err) {
@@ -188,13 +160,12 @@ function renderVideoEmbed(videoId) {
             allowfullscreen>
         </iframe>
     `;
-    videoTitle.textContent = `Video ID: ${videoId}`; // Detailed title not available without API key or extra scrape
+    videoTitle.textContent = `Video ID: ${videoId}`; /
 }
 
 function renderAnalysis(data) {
     // 1. Topics
     topicsList.innerHTML = '';
-    // Handle both 'main_topics' (spec) and 'key_topics' (backend actual)
     const topics = data.main_topics || data.key_topics;
     if (topics && Array.isArray(topics)) {
         topics.forEach(topic => {
@@ -236,18 +207,15 @@ function renderQuiz(questions) {
         const optionsDiv = document.createElement('div');
         optionsDiv.className = 'quiz-options';
 
-        // Normalize options: could be Object {"A":"...", "B":"..."} or Array ["...", "..."]
         let optionsToRender = [];
         let correctKey = q.correct || q.correct_answer; // Handle 'correct' (spec) or 'correct_answer' (backend)
 
         if (Array.isArray(q.options)) {
-            // Convert Array ["Op1", "Op2"] -> [{key:"A", val:"Op1"}, ...]
             q.options.forEach((opt, i) => {
                 const key = String.fromCharCode(65 + i); // A, B, C...
                 optionsToRender.push({ key, val: opt });
             });
         } else if (q.options && typeof q.options === 'object') {
-            // Object {"A":"Op1", ...}
             Object.entries(q.options).forEach(([key, val]) => {
                 optionsToRender.push({ key, val });
             });
@@ -264,18 +232,14 @@ function renderQuiz(questions) {
                 const allOpts = optionsDiv.querySelectorAll('.option-btn');
                 allOpts.forEach(opt => opt.classList.remove('selected', 'correct'));
 
-                // Compare answer. Backend might send "A" or "Option text" or "A) Option".
-                // We'll try loose matching.
                 const isCorrect = (correctKey === key) || (correctKey && correctKey.startsWith(key)) || (correctKey === val);
 
                 if (isCorrect) {
                     btn.classList.add('correct');
                 } else {
                     btn.classList.add('selected');
-                    // Find correct one to highlight
                     allOpts.forEach(opt => {
                         const optText = opt.textContent;
-                        // If correctKey matches the key or the text
                         if ((correctKey === key) || (correctKey && correctKey.startsWith(key)) || (correctKey === val)) {
                             opt.classList.add('correct');
                         }
@@ -310,7 +274,7 @@ function setLoading(btnElement, isLoading) {
     }
 }
 
-function showStatus(msg, type = 'info') { // type: 'info', 'success', 'error'
+function showStatus(msg, type = 'info') { 
     statusMessage.textContent = msg;
     statusMessage.className = `status-message ${type}`;
     statusMessage.classList.remove('hidden');
@@ -332,7 +296,6 @@ function copyToClipboard(text, successMsg) {
         showStatus(successMsg, 'success');
         setTimeout(() => {
             clearStatus();
-            // Optional: restore old status if needed, but fading out is fine
         }, 2000);
     }).catch(err => {
         console.error('Copy failed', err);
